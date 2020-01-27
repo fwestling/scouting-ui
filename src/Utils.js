@@ -67,7 +67,7 @@ export async function FetchSingleTeam(puid, next, err) {
       res => {
         console.log(res);
         access_token = "Bearer " + res.access_token;
-        setTimeout(FetchAllTeams(next, err), 1000);
+        setTimeout(FetchAllTeams(next, err), 10);
       },
       err => {
         console.log("error", err);

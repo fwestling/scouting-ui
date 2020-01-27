@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 import { FetchAllTeams, FetchSingleTeam } from "./Utils";
+
+import SyncIcon from "@material-ui/icons/Sync";
 
 export default class MainView extends Component {
   constructor(props) {
@@ -31,10 +33,13 @@ export default class MainView extends Component {
 
   render() {
     console.log(this.state.scout_data);
-    return (
-      <div>
+    return this.state.scout_data.data == null ? (
+      <Fragment>
+        <h1>Loading...</h1>
+      </Fragment>
+    ) : (
+      <div className="primary-view">
         <h6>{this.state.res}</h6>
-        <p>{this.state.access_token || "Unauthorised"}</p>
         <select type="select">
           {this.state.scout_data.data == null ? (
             <option name="NULL">""</option>
@@ -69,7 +74,9 @@ export default class MainView extends Component {
           )}
         </select>
         <ul></ul>
-        <button onClick={this.Update}>Refresh</button>
+        <button onClick={this.Update}>
+          <SyncIcon /> Refresh
+        </button>
       </div>
     );
   }
