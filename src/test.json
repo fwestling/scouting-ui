@@ -1,0 +1,77 @@
+{
+  "links": {
+    "self": "https://five.epicollect.net/api/export/entries/team-5876-infinite-recharge-scouting?form_ref=30a3763d612844c285b9e93d4bf72b65e2e47027b041&parent_form_ref=&branch=&branch_ref=&branch_owner_uuid=&parent_uuid=&uuid=&input_ref=&per_page=50&sort_by=created_at&sort_order=DESC&map_index=0&filter_by=&filter_from=&filter_to=&format=json&headers=true&title=&page=1",
+    "first": "https://five.epicollect.net/api/export/entries/team-5876-infinite-recharge-scouting?form_ref=30a3763d612844c285b9e93d4bf72b65e2e47027b041&parent_form_ref=&branch=&branch_ref=&branch_owner_uuid=&parent_uuid=&uuid=&input_ref=&per_page=50&sort_by=created_at&sort_order=DESC&map_index=0&filter_by=&filter_from=&filter_to=&format=json&headers=true&title=&page=1",
+    "prev": null,
+    "next": null,
+    "last": "https://five.epicollect.net/api/export/entries/team-5876-infinite-recharge-scouting?form_ref=30a3763d612844c285b9e93d4bf72b65e2e47027b041&parent_form_ref=&branch=&branch_ref=&branch_owner_uuid=&parent_uuid=&uuid=&input_ref=&per_page=50&sort_by=created_at&sort_order=DESC&map_index=0&filter_by=&filter_from=&filter_to=&format=json&headers=true&title=&page=1"
+  },
+  "meta": {
+    "total": 5,
+    "per_page": 50,
+    "current_page": 1,
+    "last_page": 1,
+    "from": 1,
+    "to": 1
+  },
+  "data": {
+    "id": "team-5876-infinite-recharge-scouting",
+    "type": "entries",
+    "entries": [
+      {
+        "ec5_uuid": "58d6c6e8-960c-45e2-a1be-a1e2aec72d67",
+        "created_at": "2020-01-27T03:20:21.284Z",
+        "uploaded_at": "2020-01-27T03:20:41.000Z",
+        "created_by": "fredrik.westling@gmail.com",
+        "title": "9876 ARTEMOOSE",
+        "Team_Number": 9876,
+        "Team_Name": "ARTEMOOSE",
+        "Picture_of_robot": "58d6c6e8-960c-45e2-a1be-a1e2aec72d67_1580095218.jpg"
+      },
+      {
+        "ec5_uuid": "33f1592e-d090-4f1d-8886-8c3cbda9cd83",
+        "created_at": "2020-01-27T03:19:59.798Z",
+        "uploaded_at": "2020-01-27T03:20:39.000Z",
+        "created_by": "fredrik.westling@gmail.com",
+        "title": "2876 Rat",
+        "Team_Number": 2876,
+        "Team_Name": "Rat",
+        "Picture_of_robot": "33f1592e-d090-4f1d-8886-8c3cbda9cd81580095197.jpg"
+      },
+      {
+        "ec5_uuid": "9085bc28-6c95-40e9-afb9-c7830bde8a35",
+        "created_at": "2020-01-27T03:19:35.338Z",
+        "uploaded_at": "2020-01-27T03:20:37.000Z",
+        "created_by": "fredrik.westling@gmail.com",
+        "title": "6876 ArteSpace",
+        "Team_Number": 6876,
+        "Team_Name": "ArteSpace",
+        "Picture_of_robot": "9085bc28-6c95-40e9-afb9-c7830bde8a35_1580095172.jpg"
+      },
+      {
+        "ec5_uuid": "58e50611-1825-40d9-a792-f23606803696",
+        "created_at": "2020-01-27T03:19:04.489Z",
+        "uploaded_at": "2020-01-27T03:20:36.000Z",
+        "created_by": "fredrik.westling@gmail.com",
+        "title": "9999 Mentors",
+        "Team_Number": 9999,
+        "Team_Name": "Mentors",
+        "Picture_of_robot": "58e50611-1825-40d9-a792-f23606803696_1580095142.jpg"
+      },
+      {
+        "ec5_uuid": "bc182abc-9306-47a4-bef8-2fe973938f2a",
+        "created_at": "2020-01-27T03:18:46.231Z",
+        "uploaded_at": "2020-01-27T03:20:34.000Z",
+        "created_by": "fredrik.westling@gmail.com",
+        "title": "5876 ARTEMIS",
+        "Team_Number": 5876,
+        "Team_Name": "ARTEMIS",
+        "Picture_of_robot": "bc182abc-9306-47a4-bef8-2fe973938f2a_1580095122.jpg"
+      }
+    ],
+    "mapping": {
+      "map_name": "EC5_AUTO",
+      "map_index": 0
+    }
+  }
+}
