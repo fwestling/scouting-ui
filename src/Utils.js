@@ -61,7 +61,37 @@ export async function FetchAllTeams(next, err) {
   }
 }
 
-export async function FetchSingleTeam(puid, next, err) {
+export async function FetchTeamPhoto(parent_uid, photo_name, next, err) {
+  let url =
+    "https://five.epicollect.net/api/internal/media/team-5876-infinite-recharge-scouting?type=photo&format=entry_original&name=" +
+    photo_name;
+  if (access_token === "") {
+    GetToken(
+      res => {
+        console.log(res);
+        access_token = "Bearer " + res.access_token;
+        setTimeout(FetchAllTeams(next, err), 1000);
+      },
+      err => {
+        console.log("error", err);
+      }
+    );
+  } else {
+    console.log("AT = " + access_token);
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: access_token
+        }
+      });
+      next(response);
+    } catch (error) {
+      err(error);
+    }
+  }
+}
+
+export async function FetchSingleTeam(parent_uid, next, err) {
   if (access_token === "") {
     GetToken(
       res => {
