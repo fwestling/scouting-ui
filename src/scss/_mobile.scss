@@ -1,0 +1,34 @@
+// Widescreens
+@include mediaXl {
+}
+
+// Desktops & Laptops
+@include mediaLg {
+}
+
+// Tablets & small laptops
+@include mediaMd {
+  .selectors {
+    grid-template-columns: 1fr 1fr;
+    .team {
+      img {
+        width: 50%;
+        border: 2px $dark-color solid;
+        padding: 0.1rem;
+        margin: 0.5rem;
+      }
+    }
+  }
+}
+
+// Smartphones
+@include mediaSm {
+  .selectors {
+    grid-template-columns: 1fr;
+    .team {
+      img {
+        width: 50%;
+      }
+    }
+  }
+}

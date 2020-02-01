@@ -1,3 +1,5 @@
+@import "config";
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -24,15 +26,42 @@ code {
 }
 
 .selectors {
-  display: flex;
-  justify-content: space-between;
-  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  // grid-template-columns: repeat(3, 1fr);
+  // justify-content: space-between;
+  grid-gap: 2rem;
+  padding: 1rem;
   .team {
-    width: 30%;
+    width: 100%;
     background-color: #fff;
 
     &-selector {
       width: 100%;
+      margin-bottom: 0.5rem;
+    }
+
+    button {
+      width: 50%;
+      padding: 0.5rem 0;
+    }
+
+    img {
+      border: 2px $dark-color solid;
+      padding: 0.1rem;
+      margin: 5%;
+      width: 90%;
+    }
+
+    .table {
+      width: 100%;
+      td {
+        width: 50%;
+
+        &:first-child {
+          text-transform: capitalize;
+        }
+      }
     }
   }
 }
@@ -63,3 +92,9 @@ code {
     border-top: 3px #f00 solid;
   }
 }
+
+.text-error {
+  color: red;
+}
+
+@import "mobile";
