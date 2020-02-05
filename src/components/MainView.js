@@ -1,6 +1,11 @@
 import React, { Component, Fragment } from "react";
 
-import { FetchAllTeams, FetchMatchData, FetchTeamPhoto } from "./Utils";
+import {
+  FetchAllTeams,
+  FetchMatchData,
+  FetchTeamPhoto,
+  GetScoreForAlliance
+} from "../Utils";
 
 import SyncIcon from "@material-ui/icons/Sync";
 import { Select, MenuItem } from "@material-ui/core";
@@ -159,6 +164,13 @@ export default class MainView extends Component {
 
   render() {
     console.log(this.state.scout_data);
+    let score = GetScoreForAlliance(
+      this.state.match_data,
+      this.state.teamA,
+      this.state.teamB,
+      this.state.teamC
+    );
+
     return (
       <div className="primary-view">
         {this.state.match_data.length === 0 ? (
@@ -168,6 +180,21 @@ export default class MainView extends Component {
         ) : (
           <Fragment>
             <div className="selectors">
+              <div className="team">
+                <h1 className="team-selector">Alliance</h1>
+                {score && (
+                  <table className="table">
+                    <tbody>
+                      {Object.keys(score).map(key => (
+                        <tr key={key}>
+                          <td>{key.replace("_", " ")}</td>
+                          <td>{score[key]}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
               {[this.state.teamA, this.state.teamB, this.state.teamC].map(
                 (team, idx) => (
                   <div className="team" key={idx}>
@@ -202,12 +229,12 @@ export default class MainView extends Component {
             </div>
           </Fragment>
         )}
-        <a
+        <button
           className={"refresh refresh-" + this.state.resClass}
           onClick={this.Update}
         >
           <SyncIcon />
-        </a>
+        </button>
       </div>
     );
   }

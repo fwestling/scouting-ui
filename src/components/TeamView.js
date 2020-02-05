@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PhotoIcon from "@material-ui/icons/Photo";
-import { FetchTeamPhoto, GetScoreForTeam, FetchMatchData } from "./Utils";
+import { GetScoreForTeam } from "../Utils";
 
 export default class TeamView extends Component {
   constructor(props) {
@@ -43,6 +43,7 @@ export default class TeamView extends Component {
             <span>Loading...</span>
           ) : this.props.pic ? (
             <img
+              alt="No pic found"
               src={"data:image/jpeg;base64," + this.props.pic}
               onClick={this.ToggleShowPic}
             />

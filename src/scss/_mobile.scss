@@ -23,6 +23,11 @@
 
 // Smartphones
 @include mediaSm {
+  .landing {
+    .buttons {
+      flex-direction: column;
+    }
+  }
   .selectors {
     grid-template-columns: 1fr;
     .team {

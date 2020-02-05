@@ -1,12 +1,20 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import MainView from "./MainView";
+import "./index.min.css";
+import MainView from "./components/MainView";
+import Landing from "./components/Landing";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import AllianceView from "./components/AllianceView";
 
 function App() {
   return (
     <div className="App">
-      <MainView />
+      <Router>
+        <Route exact path="/" component={Landing} />
+        <Switch>
+          <Route exact path="/strategy" component={MainView} />
+          <Route exact path="/alliance" component={AllianceView} />
+        </Switch>
+      </Router>
     </div>
   );
 }
