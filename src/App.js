@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import "./index.min.css";
 import MainView from "./components/MainView";
 import Landing from "./components/Landing";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import AllianceView from "./components/AllianceView";
 import { FetchAllTeams, FetchMatchData } from "./Utils";
 
@@ -61,7 +61,7 @@ export default class App extends Component {
     return (
       <div className="bg-dark">
         <div className="bg-dark">
-          <Router>
+          <HashRouter basename="/">
             <Route exact path="/" component={Landing} />
             <div className="main container">
               {this.state.match_data.length === 0 ? (
@@ -97,7 +97,7 @@ export default class App extends Component {
                 </Switch>
               )}
             </div>
-          </Router>
+          </HashRouter>
         </div>
         <div className="footer">
           <button
