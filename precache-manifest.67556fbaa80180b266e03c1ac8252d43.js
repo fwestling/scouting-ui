@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c130df1fa39d61ccc179dc3fac4ea7f5",
+    "revision": "ec4557093e1c848d9f299ecd1e3c9d01",
     "url": "/scouting-ui/index.html"
   },
   {
-    "revision": "9e1d2de43abaef8b32c2",
-    "url": "/scouting-ui/static/css/main.c258b918.chunk.css"
+    "revision": "3cdd2b0924687feb9b72",
+    "url": "/scouting-ui/static/css/main.122dabe9.chunk.css"
   },
   {
     "revision": "6212d171712f5f03818e",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/scouting-ui/static/js/2.92009ef5.chunk.js.LICENSE"
   },
   {
-    "revision": "9e1d2de43abaef8b32c2",
-    "url": "/scouting-ui/static/js/main.59710be1.chunk.js"
+    "revision": "3cdd2b0924687feb9b72",
+    "url": "/scouting-ui/static/js/main.fa0fef81.chunk.js"
   },
   {
     "revision": "b6bc9cedbd3883fb5c2c",
