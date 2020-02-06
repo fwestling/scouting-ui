@@ -94,6 +94,10 @@ main {
   background: darken($primary-color, 10);
   color: set-text-color($primary-color);
   height: 60px;
+  display: flex;
+  button {
+    width: 50%;
+  }
 }
 
 // Landing
@@ -198,6 +202,7 @@ main {
   // height: 4rem;
   border: none;
   background-color: #ccc;
+  border: 2px solid #ddd;
   display: flex;
   justify-content: center;
   text-align: center;

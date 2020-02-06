@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from "react";
 import "./index.min.css";
 import MainView from "./components/MainView";
-import Landing from "./components/Landing";
-import { HashRouter, Route, Switch } from "react-router-dom";
 import AllianceView from "./components/AllianceView";
 import { FetchAllTeams, FetchMatchData } from "./Utils";
 
@@ -15,7 +13,8 @@ export default class App extends Component {
       resClass: "",
       access_token: "",
       match_data: [],
-      scout_data: []
+      scout_data: [],
+      page: "landing"
     };
 
     this.Update = this.Update.bind(this);
@@ -61,8 +60,26 @@ export default class App extends Component {
     return (
       <div className="bg-dark">
         <div className="bg-dark">
-          <HashRouter basename="/">
-            <Route exact path="/" component={Landing} />
+          {this.state.page === "landing" ? (
+            <div className="landing">
+              <div className="landing-inner dark-overlay">
+                <div className="buttons">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => this.setState({ page: "strategy" })}
+                  >
+                    Strategy
+                  </button>
+                  <button
+                    className="btn"
+                    onClick={() => this.setState({ page: "alliance" })}
+                  >
+                    Alliance Selection
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
             <div className="main container">
               {this.state.match_data.length === 0 ? (
                 <div className="primary-view">
@@ -71,35 +88,30 @@ export default class App extends Component {
                   </div>
                 </div>
               ) : (
-                <Switch>
-                  <Route
-                    exact
-                    path="/strategy"
-                    render={props => (
-                      <MainView
-                        {...props}
-                        scout_data={this.state.scout_data}
-                        match_data={this.state.match_data}
-                      />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/alliance"
-                    render={props => (
-                      <AllianceView
-                        {...props}
-                        scout_data={this.state.scout_data}
-                        match_data={this.state.match_data}
-                      />
-                    )}
-                  />
-                </Switch>
+                <Fragment>
+                  {this.state.page === "strategy" ? (
+                    <MainView
+                      scout_data={this.state.scout_data}
+                      match_data={this.state.match_data}
+                    />
+                  ) : (
+                    <AllianceView
+                      scout_data={this.state.scout_data}
+                      match_data={this.state.match_data}
+                    />
+                  )}
+                </Fragment>
               )}
             </div>
-          </HashRouter>
+          )}
         </div>
         <div className="footer">
+          <button
+            className={"refresh"}
+            onClick={() => this.setState({ page: "landing" })}
+          >
+            <i className="fas fa-home" />
+          </button>
           <button
             className={"refresh refresh-" + this.state.resClass}
             onClick={this.Update}
