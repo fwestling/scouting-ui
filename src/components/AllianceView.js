@@ -39,7 +39,7 @@ export default class AllianceView extends Component {
         ) : (
           <Fragment>
             <div className="allianceSelection">
-              <table className="table">
+              <table className="table table-alliance">
                 <thead>
                   <tr>
                     <th>Team number</th>

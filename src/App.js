@@ -59,7 +59,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="bg-dark">
-        <div className="bg-dark">
+        <div className="">
           {this.state.page === "landing" ? (
             <div className="landing">
               <div className="landing-inner dark-overlay">
@@ -83,7 +83,7 @@ export default class App extends Component {
             <div className="main container">
               {this.state.match_data.length === 0 ? (
                 <div className="primary-view">
-                  <div className="selectors">
+                  <div className="selectors text-light">
                     <h1>Loading...</h1>
                   </div>
                 </div>

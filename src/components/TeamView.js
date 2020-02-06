@@ -30,7 +30,7 @@ export default class TeamView extends Component {
               {Object.keys(score).map(key => (
                 <tr key={key}>
                   <td>{key.replace("_", " ")}</td>
-                  <td>{score[key]}</td>
+                  <td>{Math.round(score[key] * 100) / 100}</td>
                 </tr>
               ))}
             </tbody>
