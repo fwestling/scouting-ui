@@ -79,10 +79,11 @@ main {
   // background: darken($primary-color, 10%);
   // @include set-background(rgba($black, 0.7));
   background: url("img/background.jpg") no-repeat center center/cover;
+  height: calc(100vh - 60px);
 
   // max-width: $max-width;
   margin: auto;
-  overflow: hidden;
+  overflow: auto;
   padding: 0; // 1rem;
   // margin-top: 1rem;
   // margin-bottom: 1rem;
