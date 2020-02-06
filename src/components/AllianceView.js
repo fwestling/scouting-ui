@@ -1,100 +1,84 @@
 import React, { Component, Fragment } from "react";
 
-import { FetchAllTeams, FetchMatchData } from "../Utils";
-
-import SyncIcon from "@material-ui/icons/Sync";
+import { GetRanking } from "../Utils";
 
 export default class AllianceView extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      res: "",
-      resClass: "",
-      access_token: "",
-      loading: false,
-      scout_data: [],
-      match_data: [],
-      available: []
+      teams: this.props.scout_data.map(team => {
+        team.Gone = false;
+        return team;
+      })
     };
 
-    this.Update = this.Update.bind(this);
-    this.Update();
+    this.toggle = this.toggle.bind(this);
   }
 
-  Update() {
-    FetchAllTeams(
-      res => {
-        console.log("TEAM DATA");
-        console.log(res);
-        this.setState(
-          {
-            scout_data: res
-          },
-          () => {
-            FetchMatchData(
-              res => {
-                console.log(res);
-                this.setState({
-                  res: "Success",
-                  resClass: "success",
-                  match_data: res
-                });
-              },
-              err => {
-                console.error(err);
-                this.setState({ res: "Failed: " + err });
-              }
-            );
-          }
-        );
-      },
-      err => {
-        console.error(err);
-        this.setState({ res: "Failed: " + err, resClass: "danger" });
-      }
-    );
+  toggle(team_id) {
+    console.log("Toggling " + team_id);
+    let T = this.state.teams;
+    T.map(t => {
+      if (t.ec5_uuid === team_id) t.Gone = !t.Gone;
+      return t;
+    });
+    this.setState({ teams: T }, () => console.log(this.state.teams));
   }
 
   render() {
+    console.log("Test");
     return (
       <div className="primary-view">
-        {this.state.match_data.length === 0 ? (
-          <Fragment>
-            <h1>{this.state.res || "Loading..."}</h1>
-          </Fragment>
+        {this.props.match_data.length === 0 ? (
+          <div className="selectors">
+            <Fragment>
+              <h1>Something went wrong...</h1>
+            </Fragment>
+          </div>
         ) : (
           <Fragment>
             <div className="allianceSelection">
-              <table>
+              <table className="table">
                 <thead>
-                  <th>Team number</th>
-                  <th>Team name</th>
-                  <th>Score</th>
-                  <th></th>
+                  <tr>
+                    <th>Team number</th>
+                    <th>Team name</th>
+                    <th>Score</th>
+                    <th></th>
+                  </tr>
                 </thead>
                 <tbody>
-                  {this.state.scout_data.map((team, idx) => (
-                    <tr key={idx}>
-                      <td>team.number</td>
-                      <td>team.name</td>
-                      <td>0</td>
-                      <td>
-                        <button className="btn btn-primary" />
-                      </td>
-                    </tr>
-                  ))}
+                  {this.state.teams
+                    .map(team => {
+                      team.Rank = GetRanking(team, this.props.match_data);
+                      return team;
+                    })
+                    .sort((a, b) => {
+                      return b.Rank - a.Rank;
+                    })
+                    .map((team, idx) => (
+                      <tr key={idx} className={team.Gone ? "cross" : "happy"}>
+                        <td>{team.Team_Number}</td>
+                        <td>{team.Team_Name}</td>
+                        <td>{team.Rank}</td>
+                        <td>
+                          <button
+                            className="btn btn-primary"
+                            onClick={e => {
+                              this.toggle(team.ec5_uuid);
+                            }}
+                          >
+                            <i className="fas fa-times-circle" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
           </Fragment>
         )}
-        <button
-          className={"refresh refresh-" + this.state.resClass}
-          onClick={this.Update}
-        >
-          <SyncIcon />
-        </button>
       </div>
     );
   }

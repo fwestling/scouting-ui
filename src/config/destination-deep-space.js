@@ -80,3 +80,8 @@ export function RateAlliance(match_data, teamA, teamB, teamC) {
 
   return score;
 }
+
+export function RankTeam(data) {
+  let score = GetScore(data);
+  return score.cargo; // + score.hatches;
+}

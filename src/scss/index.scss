@@ -8,16 +8,15 @@
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+  background: darken($primary-color, 10%);
 }
-
 body {
   // font-size: 1rem;
   line-height: 1.6;
   background-color: $white;
   color: $black;
   font-family: $body-font;
+  // padding-bottom: 6rem;
 }
 
 h1,
@@ -42,6 +41,59 @@ img {
 .italic {
   font-style: italic;
   padding-right: 0.3rem;
+}
+
+header {
+  position: fixed; // Always stays at the top
+  z-index: 2;
+  width: 100%;
+}
+
+main {
+  position: relative;
+  // margin: 0 auto;
+  padding-top: 64px;
+  // max-width: 640px;
+  width: 100%;
+  padding-bottom: 6rem;
+
+  // padding: 4rem;
+  // height: 100%;
+  // min-height: calc(100vh - 60px);
+  overflow: hidden;
+
+  .icons {
+    margin-top: 1rem;
+
+    a {
+      padding: 0.4rem;
+
+      &:hover {
+        color: $secondary-color;
+        @include easeOut;
+      }
+    }
+  }
+}
+.container {
+  background: darken($primary-color, 10%);
+
+  // max-width: $max-width;
+  margin: auto;
+  overflow: hidden;
+  padding: 0 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.footer {
+  text-align: center;
+  // padding: 1rem;
+  left: 0;
+  bottom: 0;
+  background: darken($primary-color, 10);
+  color: set-text-color($primary-color);
+  height: 60px;
 }
 
 // Landing
@@ -75,34 +127,48 @@ img {
 }
 
 .primary-view {
-  height: 100vh;
+  // height: 100vh;
+  min-height: calc(100vh - 60px - 2rem);
   width: 100%;
   left: 0;
   top: 0;
   display: flex;
   flex-direction: column;
-  background-color: #eee;
+  background-color: lighten($primary-color, 50%);
   color: #333;
 }
 
 .selectors {
   display: grid;
+  overflow: auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   // grid-template-columns: repeat(3, 1fr);
   // justify-content: space-between;
   grid-gap: 2rem;
   padding: 1rem;
+
   .team {
+    border: 1px solid darken($primary-color, 10%);
+    // overflow: hidden;
     width: 100%;
-    background-color: #fff;
+    padding: 1rem;
+    min-width: 4rem;
+    background-color: lighten($primary-color, 50%);
+    @include centered;
 
     &-selector {
+      font-family: $body-font;
+      font-size: 1.2rem;
+      font-weight: bold;
       width: 100%;
       margin-bottom: 0.5rem;
+      background-color: lighten($primary-color, 40%);
+      border-radius: 8px;
+      padding: 0.5rem;
     }
 
     button {
-      width: 50%;
+      width: 100%;
       padding: 0.5rem 0;
     }
 
@@ -127,9 +193,9 @@ img {
 }
 
 .refresh {
-  position: fixed;
-  bottom: 2px;
-  height: 4rem;
+  // position: fixed;
+  // bottom: 2px;
+  // height: 4rem;
   border: none;
   background-color: #ccc;
   display: flex;
@@ -137,6 +203,7 @@ img {
   text-align: center;
   align-items: center;
   width: 100%;
+  height: 100%;
 
   transition: 0.2s all;
 

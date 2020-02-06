@@ -1,6 +1,6 @@
 // Container
 .container {
-  max-width: $max-width;
+  // max-width: $max-width;
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
@@ -219,9 +219,15 @@
 }
 
 .table {
+  width: 100%;
+  overflow: auto;
+
+  .cross {
+    text-decoration: line-through;
+  }
   th,
   td {
-    padding: 1rem;
+    // padding: 1rem;
     text-align: left;
   }
 
