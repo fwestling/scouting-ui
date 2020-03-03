@@ -3,6 +3,16 @@ import "./index.min.css";
 import MainView from "./components/MainView";
 import AllianceView from "./components/AllianceView";
 import { FetchAllTeams, FetchMatchData } from "./Utils";
+import { Provider } from "react-redux"; // Wrap everything in this so all components have access to the store
+import store from "./store";
+import { loadUser } from "./actions/auth";
+
+import setAuthToken from "./utils/setAuthToken";
+
+// Check if there's a token, always send it in a global header
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 export default class App extends Component {
   constructor(props) {
@@ -58,68 +68,11 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="bg-dark">
-        <div className="">
-          {this.state.page === "landing" ? (
-            <div className="landing">
-              <div className="landing-inner dark-overlay">
-                <div className="buttons">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => this.setState({ page: "strategy" })}
-                  >
-                    Strategy
-                  </button>
-                  <button
-                    className="btn"
-                    onClick={() => this.setState({ page: "alliance" })}
-                  >
-                    Alliance Selection
-                  </button>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="main container">
-              {this.state.match_data.length === 0 ? (
-                <div className="primary-view">
-                  <div className="selectors text-light">
-                    <h1>Loading...</h1>
-                  </div>
-                </div>
-              ) : (
-                <Fragment>
-                  {this.state.page === "strategy" ? (
-                    <MainView
-                      scout_data={this.state.scout_data}
-                      match_data={this.state.match_data}
-                    />
-                  ) : (
-                    <AllianceView
-                      scout_data={this.state.scout_data}
-                      match_data={this.state.match_data}
-                    />
-                  )}
-                </Fragment>
-              )}
-            </div>
-          )}
-        </div>
-        <div className="footer">
-          <button
-            className={"refresh"}
-            onClick={() => this.setState({ page: "landing" })}
-          >
-            <i className="fas fa-home" />
-          </button>
-          <button
-            className={"refresh refresh-" + this.state.resClass}
-            onClick={this.Update}
-          >
-            <i className="fas fa-sync" />
-          </button>
-        </div>
-      </div>
-    );
+      <Provider store={store}>
+        <Fragment>
+
+</Fragment>
+        </Provider>
+      );
   }
 }
