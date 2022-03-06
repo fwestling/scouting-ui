@@ -1,12 +1,21 @@
 import axios from "axios";
 
 // SELECT CONFIG
-import {
+
+const querystring = window.location.search;
+const urlParams = new URLSearchParams(querystring);
+var game = urlParams.get("game") ?? "destination-deep-space";
+if (
+  !["destination-deep-space", "infinite-recharge", "rapid-react"].includes(game)
+)
+  game = "destination-deep-space";
+
+const {
   config,
   GetScore,
   RateAlliance,
-  RankTeam
-} from "./config/destination-deep-space";
+  RankTeam,
+} = require(`./config/${game}`);
 
 let access_token = "";
 
@@ -24,7 +33,7 @@ export function GetScoreForAlliance(data, teamA, teamB, teamC) {
 }
 
 export function GetRanking(team, match_data) {
-  let data = match_data.filter(x => x.ec5_parent_uuid === team.ec5_uuid);
+  let data = match_data.filter((x) => x.ec5_parent_uuid === team.ec5_uuid);
   return RankTeam(data);
 }
 
@@ -39,13 +48,13 @@ export async function GetToken(next, err) {
     method: "POST",
     headers: myHeaders,
     body: raw,
-    redirect: "follow"
+    redirect: "follow",
   };
 
   fetch("https://five.epicollect.net/api/oauth/token", requestOptions)
-    .then(response => response.json())
-    .then(result => next(result))
-    .catch(error => {
+    .then((response) => response.json())
+    .then((result) => next(result))
+    .catch((error) => {
       err(error);
     });
 }
@@ -53,12 +62,12 @@ export async function GetToken(next, err) {
 export async function FetchAllTeams(next, err) {
   if (access_token === "") {
     GetToken(
-      res => {
+      (res) => {
         console.log(res);
         access_token = "Bearer " + res.access_token;
         setTimeout(FetchAllTeams(next, err), 1000);
       },
-      err => {
+      (err) => {
         console.log("error", err);
       }
     );
@@ -71,8 +80,8 @@ export async function FetchAllTeams(next, err) {
           "?per_page=200",
         {
           headers: {
-            Authorization: access_token
-          }
+            Authorization: access_token,
+          },
         }
       );
       next(response.data.data.entries);
@@ -83,6 +92,7 @@ export async function FetchAllTeams(next, err) {
 }
 
 export async function FetchTeamPhoto(parent_uid, photo_name, next, err) {
+  if (photo_name.startsWith("https")) return next(photo_name);
   let url =
     "https://five.epicollect.net/api/export/media/" +
     config.project_slug +
@@ -90,12 +100,12 @@ export async function FetchTeamPhoto(parent_uid, photo_name, next, err) {
     photo_name;
   if (access_token === "") {
     GetToken(
-      res => {
+      (res) => {
         console.log(res);
         access_token = "Bearer " + res.access_token;
         setTimeout(FetchAllTeams(next, err), 1000);
       },
-      err => {
+      (err) => {
         console.log("error", err);
       }
     );
@@ -104,10 +114,10 @@ export async function FetchTeamPhoto(parent_uid, photo_name, next, err) {
     try {
       const response = await axios.get(url, {
         headers: {
-          Authorization: access_token
+          Authorization: access_token,
         },
         responseType: "arraybuffer",
-        timeout: 10000
+        timeout: 10000,
       });
       console.log(response);
       next(Buffer.from(response.data, "binary").toString("base64"));
@@ -120,12 +130,12 @@ export async function FetchTeamPhoto(parent_uid, photo_name, next, err) {
 export async function FetchMatchData(next, err) {
   if (access_token === "") {
     GetToken(
-      res => {
+      (res) => {
         console.log(res);
         access_token = "Bearer " + res.access_token;
         setTimeout(FetchAllTeams(next, err), 10);
       },
-      err => {
+      (err) => {
         console.log("error", err);
       }
     );
@@ -149,8 +159,8 @@ async function FetchMatchPartial(url, next, err) {
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: access_token
-      }
+        Authorization: access_token,
+      },
     });
     let A = response.data.data.entries;
     console.log("PARTIAL");
@@ -159,7 +169,7 @@ async function FetchMatchPartial(url, next, err) {
       next(
         FetchMatchPartial(
           response.data.links.next,
-          A2 => {
+          (A2) => {
             next(A.concat(A2));
           },
           err

@@ -8,13 +8,17 @@ export default class App extends Component {
   constructor(props) {
     super(props);
 
+    const querystring = window.location.search;
+    const urlParams = new URLSearchParams(querystring);
+    const game = urlParams.get("game") ?? "destination-deep-space";
     this.state = {
+      game,
       res: "",
       resClass: "",
       access_token: "",
       match_data: [],
       scout_data: [],
-      page: "landing"
+      page: "landing",
     };
 
     this.Update = this.Update.bind(this);
@@ -24,24 +28,24 @@ export default class App extends Component {
 
   Update() {
     FetchAllTeams(
-      res => {
+      (res) => {
         console.log("TEAM DATA");
         console.log(res);
         this.setState(
           {
-            scout_data: res
+            scout_data: res,
           },
           () => {
             FetchMatchData(
-              res => {
+              (res) => {
                 console.log(res);
                 this.setState({
                   res: "Success",
                   resClass: "success",
-                  match_data: res
+                  match_data: res,
                 });
               },
-              err => {
+              (err) => {
                 console.error(err);
                 this.setState({ res: "Failed: " + err });
               }
@@ -49,7 +53,7 @@ export default class App extends Component {
           }
         );
       },
-      err => {
+      (err) => {
         console.error(err);
         this.setState({ res: "Failed: " + err, resClass: "danger" });
       }
@@ -61,7 +65,13 @@ export default class App extends Component {
       <div className="bg-dark">
         <div className="">
           {this.state.page === "landing" ? (
-            <div className="landing">
+            <div
+              className={
+                this.state.game === "destination-deep-space"
+                  ? "landing"
+                  : `landing-${this.state.game}`
+              }
+            >
               <div className="landing-inner dark-overlay">
                 <div className="buttons">
                   <button
@@ -80,7 +90,13 @@ export default class App extends Component {
               </div>
             </div>
           ) : (
-            <div className="main container">
+            <div
+              className={`main ${
+                this.state.game === "destination-deep-space"
+                  ? "container"
+                  : `container-${this.state.game}`
+              }`}
+            >
               {this.state.match_data.length === 0 ? (
                 <div className="primary-view">
                   <div className="selectors text-light">

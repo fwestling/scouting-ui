@@ -13,7 +13,7 @@ export default class MainView extends Component {
       teamB: null,
       teamC: null,
       pics: [null, null, null],
-      loading: [false, false, false]
+      loading: [false, false, false],
     };
 
     this.GetPhoto = this.GetPhoto.bind(this);
@@ -24,7 +24,7 @@ export default class MainView extends Component {
     console.log("TARGET VALUE: " + evt.target.value);
     console.log(this.props.scout_data);
     console.log(
-      this.props.scout_data.find(x => x.ec5_uuid === evt.target.value)
+      this.props.scout_data.find((x) => x.ec5_uuid === evt.target.value)
     );
     let L = this.state.loading;
     L[idx] = true;
@@ -34,10 +34,10 @@ export default class MainView extends Component {
       this.setState(
         {
           teamA: this.props.scout_data.find(
-            x => x.ec5_uuid === evt.target.value
+            (x) => x.ec5_uuid === evt.target.value
           ),
           loading: L,
-          pics: P
+          pics: P,
         },
         () => {
           this.GetPhoto(this.state.teamA, idx);
@@ -47,10 +47,10 @@ export default class MainView extends Component {
       this.setState(
         {
           teamB: this.props.scout_data.find(
-            x => x.ec5_uuid === evt.target.value
+            (x) => x.ec5_uuid === evt.target.value
           ),
           loading: L,
-          pics: P
+          pics: P,
         },
         () => {
           this.GetPhoto(this.state.teamB, idx);
@@ -60,10 +60,10 @@ export default class MainView extends Component {
       this.setState(
         {
           teamC: this.props.scout_data.find(
-            x => x.ec5_uuid === evt.target.value
+            (x) => x.ec5_uuid === evt.target.value
           ),
           loading: L,
-          pics: P
+          pics: P,
         },
         () => {
           this.GetPhoto(this.state.teamC, idx);
@@ -73,11 +73,13 @@ export default class MainView extends Component {
   }
 
   GetPhoto(team, idx) {
+    console.log("Getting photo");
+    console.log({ team });
     if (team) {
       FetchTeamPhoto(
         team.ec5_uuid,
         team.Picture_of_robot,
-        res => {
+        (res) => {
           let P = this.state.pics;
           P[idx] = res;
           let L = this.state.loading;
@@ -86,7 +88,7 @@ export default class MainView extends Component {
           this.setState(
             {
               pics: P,
-              loading: L
+              loading: L,
             },
             () => {
               console.log("STATE UPDATED");
@@ -94,7 +96,7 @@ export default class MainView extends Component {
             }
           );
         },
-        err => {
+        (err) => {
           console.log(err);
           console.error("Error fetching team photo: " + err);
           let P = this.state.pics;
@@ -103,7 +105,7 @@ export default class MainView extends Component {
           L[idx] = false;
           this.setState({
             pics: P,
-            loading: L
+            loading: L,
           });
         }
       );
@@ -140,7 +142,7 @@ export default class MainView extends Component {
                 {score && (
                   <table className="table">
                     <tbody>
-                      {Object.keys(score).map(key => (
+                      {Object.keys(score).map((key) => (
                         <tr key={key}>
                           <td>{key.replace("_", " ")}</td>
                           <td>{Math.round(score[key] * 100) / 100}</td>
@@ -156,7 +158,7 @@ export default class MainView extends Component {
                     <select
                       value={team ? team.ec5_uuid : ""}
                       className="team-selector"
-                      onChange={e => this.SelectorChange(e, idx)}
+                      onChange={(e) => this.SelectorChange(e, idx)}
                     >
                       <option value={""}></option>
                       {this.props.scout_data
@@ -173,7 +175,7 @@ export default class MainView extends Component {
                       <TeamView
                         team={team}
                         matches={this.props.match_data.filter(
-                          x => x.ec5_parent_uuid === team.ec5_uuid
+                          (x) => x.ec5_parent_uuid === team.ec5_uuid
                         )}
                         pic={this.state.pics[idx]}
                         loading={this.state.loading[idx]}

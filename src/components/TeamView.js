@@ -6,7 +6,7 @@ export default class TeamView extends Component {
     super(props);
     this.state = {
       showpic: false,
-      error: false
+      error: false,
     };
 
     this.ToggleShowPic = this.ToggleShowPic.bind(this);
@@ -27,7 +27,7 @@ export default class TeamView extends Component {
         {score && (
           <table className="table">
             <tbody>
-              {Object.keys(score).map(key => (
+              {Object.keys(score).map((key) => (
                 <tr key={key}>
                   <td>{key.replace("_", " ")}</td>
                   <td>{Math.round(score[key] * 100) / 100}</td>
@@ -44,7 +44,11 @@ export default class TeamView extends Component {
             ) : this.props.pic ? (
               <img
                 alt="No pic found"
-                src={"data:image/jpeg;base64," + this.props.pic}
+                src={
+                  this.props.pic.startsWith("http")
+                    ? this.props.pic
+                    : "data:image/jpeg;base64," + this.props.pic
+                }
                 onClick={this.ToggleShowPic}
               />
             ) : (
