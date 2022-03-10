@@ -4,11 +4,11 @@ import axios from "axios";
 
 const querystring = window.location.search;
 const urlParams = new URLSearchParams(querystring);
-var game = urlParams.get("game") ?? "destination-deep-space";
+var game = urlParams.get("game") ?? "rapid-react";
 if (
   !["destination-deep-space", "infinite-recharge", "rapid-react"].includes(game)
 )
-  game = "destination-deep-space";
+  game = "rapid-react";
 
 const {
   config,

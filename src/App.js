@@ -10,7 +10,7 @@ export default class App extends Component {
 
     const querystring = window.location.search;
     const urlParams = new URLSearchParams(querystring);
-    const game = urlParams.get("game") ?? "destination-deep-space";
+    const game = urlParams.get("game") ?? "rapid-react";
     this.state = {
       game,
       res: "",

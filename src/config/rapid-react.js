@@ -17,7 +17,8 @@ export const config = {
 
 function NullScore() {
   return {
-    cargo: 0,
+    auto_cargo: 0,
+    total_cargo: 0,
     climbs: 0,
     average_cargo: 0,
     highest_climb: 0,
@@ -46,11 +47,13 @@ export function GetScore(match_data) {
   console.log(match_data);
   let score = NullScore();
   match_data.forEach((x) => {
-    score.cargo += x.auto_low + x.auto_high + x.teleop_low + x.teleop_high;
+    score.auto_cargo += x.auto_low + x.auto_high;
+    score.total_cargo +=
+      x.auto_low + x.auto_high + x.teleop_low + x.teleop_high;
     score.climbs += x.hangar !== "no" ? 1 : 0;
     score.highest_climb = Math.max(score.highest_climb, climbHeight(x.hangar));
   });
-  score.average_cargo = score.cargo / match_data.length;
+  score.average_cargo = score.total_cargo / match_data.length;
 
   return score;
 }
@@ -62,11 +65,7 @@ export function RateAlliance(match_data, teamA, teamB, teamC) {
   console.log("RATE ALLIANCE MATCH DATA");
   console.log(match_data);
 
-  let score = {
-    cargo: 0,
-    hatches: 0,
-    climbs: 0,
-  };
+  // let score = NullScore();
 
   let scoreA = NullScore();
   let scoreB = NullScore();
@@ -88,16 +87,23 @@ export function RateAlliance(match_data, teamA, teamB, teamC) {
     );
   }
 
-  score.cargo =
-    scoreA.average_cargo + scoreB.average_cargo + scoreC.average_cargo;
-  score.hatches =
-    scoreA.average_hatches + scoreB.average_hatches + scoreC.average_hatches;
-  score.climbs = scoreA.climbs + scoreB.climbs + scoreC.climbs;
-
-  return score;
+  return {
+    auto_cargo: scoreA.auto_cargo + scoreB.auto_cargo + scoreC.auto_cargo,
+    total_cargo: scoreA.total_cargo + scoreB.total_cargo + scoreC.total_cargo,
+    average_cargo:
+      (scoreA.average_cargo + scoreB.average_cargo + scoreC.average_cargo) / 3,
+    climbs: scoreA.climbs + scoreB.climbs + scoreC.climbs,
+    climb_score:
+      scoreA.highest_climb + scoreB.highest_climb + scoreC.highest_climb,
+  };
 }
 
+// @todo - should rank teams by scoring alliances -
+//  i.e. find all possible alliances (given current known alliance members)
+//       and rank the teams based on how they contribute to those alliances.
 export function RankTeam(data) {
   let score = GetScore(data);
-  return score.cargo; // + score.hatches;
+  return (
+    score.total_cargo + score.auto_cargo + score.climbs * score.highest_climb
+  ); // + score.hatches;
 }
