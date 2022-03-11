@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/scouting-ui/static/css/main.03417c75.css",
-    "main.js": "/scouting-ui/static/js/main.85313736.js",
+    "main.js": "/scouting-ui/static/js/main.ff7d3d64.js",
     "static/media/infinite-recharge.jpg": "/scouting-ui/static/media/infinite-recharge.8ac0f74f49b7fdedeb5e.jpg",
     "static/media/destination-deep-space.jpg": "/scouting-ui/static/media/destination-deep-space.e6ff89e6ef4840ce4bc6.jpg",
     "static/media/rapid-react.jpg": "/scouting-ui/static/media/rapid-react.1aa66cd8175e63f2aa3a.jpg",
     "index.html": "/scouting-ui/index.html",
     "main.03417c75.css.map": "/scouting-ui/static/css/main.03417c75.css.map",
-    "main.85313736.js.map": "/scouting-ui/static/js/main.85313736.js.map"
+    "main.ff7d3d64.js.map": "/scouting-ui/static/js/main.ff7d3d64.js.map"
   },
   "entrypoints": [
     "static/css/main.03417c75.css",
-    "static/js/main.85313736.js"
+    "static/js/main.ff7d3d64.js"
   ]
 }
