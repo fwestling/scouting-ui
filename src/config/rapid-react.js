@@ -19,8 +19,10 @@ function NullScore() {
   return {
     auto_cargo: 0,
     total_cargo: 0,
+    average_climb: 0,
     climbs: 0,
     average_cargo: 0,
+    total_climb: 0,
     highest_climb: 0,
   };
 }
@@ -50,10 +52,12 @@ export function GetScore(match_data) {
     score.auto_cargo += x.auto_low + x.auto_high;
     score.total_cargo +=
       x.auto_low + x.auto_high + x.teleop_low + x.teleop_high;
+    score.total_climb += climbHeight(x.hangar);
     score.climbs += x.hangar !== "no" ? 1 : 0;
     score.highest_climb = Math.max(score.highest_climb, climbHeight(x.hangar));
   });
   score.average_cargo = score.total_cargo / match_data.length;
+  score.average_climb = score.total_climb / match_data.length;
 
   return score;
 }
@@ -89,12 +93,11 @@ export function RateAlliance(match_data, teamA, teamB, teamC) {
 
   return {
     auto_cargo: scoreA.auto_cargo + scoreB.auto_cargo + scoreC.auto_cargo,
-    total_cargo: scoreA.total_cargo + scoreB.total_cargo + scoreC.total_cargo,
-    average_cargo:
-      (scoreA.average_cargo + scoreB.average_cargo + scoreC.average_cargo) / 3,
+    expected_cargo: scoreA.average_cargo + scoreB.average_cargo + scoreC.average_cargo,
     climbs: scoreA.climbs + scoreB.climbs + scoreC.climbs,
     climb_score:
       scoreA.highest_climb + scoreB.highest_climb + scoreC.highest_climb,
+    expected_climbs: scoreA.average_climb + scoreB.average_climb + scoreC.average_climb
   };
 }
 
